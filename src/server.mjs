@@ -5,14 +5,14 @@ import { resolve } from "node:path";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { z } from "zod";
-import { invoke } from "./domain.mjs";
-import { toolDefinitions } from "./tool-definitions.mjs";
+import { invoke, toolDefinitions } from "./all-tools.mjs";
 
 function inputSchema(definition) {
   const shape = {};
   for (const [key, spec] of Object.entries(definition.parameters.properties)) {
     let field;
     if (spec.enum) field = z.enum(spec.enum);
+    else if (spec.type === "boolean") field = z.boolean();
     else if (spec.type === "integer") {
       field = z.number().int();
       if (spec.minimum !== undefined) field = field.min(spec.minimum);

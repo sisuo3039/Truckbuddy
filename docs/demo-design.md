@@ -4,7 +4,9 @@ The repository was empty. This demo implements the two workflows in the requeste
 
 An administrator speaks a requirement. The agent collects scope, conditions, actions, numeric parameters with units, exceptions, and whether the requirement is mandatory or preferred. It returns a structured draft and validation report for admin review. Voice tools cannot approve, publish, dispatch, reassign stock, or change a route.
 
-A driver identifies their demo driver ID. The agent combines assigned vehicle and route, warehouse availability after reservations and quarantine, quantities to pick and load, delivery windows, traffic, weather, and readiness blockers. A shortage or blocked dispatch is reported before loading instructions. All operational data is fictional, not current information.
+The personalized driver is already known through `{{driver_name}}`, defaulting to Vidhi. The agent asks what they want to check and retrieves only the relevant load, temperature, route, road restriction, weather or delivery data. Each short answer invites one follow-up. The original three driver scenarios remain available by explicit driver ID.
+
+A shortage or blocked dispatch is reported before loading instructions. All operational data is fictional, not current information.
 
 ## Hosting decision
 
@@ -28,6 +30,9 @@ Draft generation and validation are deterministic helpers, not a natural-languag
 - D-001 / Alex Morgan: normal ambient loading, traffic plus rain delay, and a backload opportunity that remains unapproved.
 - D-002 / Jamie Chen: produce shortage after reserved/quarantined stock, chilled handling, and a contractual delivery window missed after fog/congestion.
 - D-003 / Sam Rivera: vehicle overload and a missed cross-dock cutoff; rerouting is only a suggestion.
+- Configured driver / Vidhi: 14 chilled-dairy pallets, 2–6°C range, a 25-minute buffer before dock opening, fictional road restrictions, and an accident that loses the buffer without missing the deadline. B441 requires explicit simulated confirmation and rejects the common low-bridge diversion.
+
+The personalized scenario adds 17 operations alongside the original 12. Its temperature excursion, stale sensor and night-return scenes are scripted branches. No real geolocation, background monitoring, automatic alerts or navigation updates are connected. The selection receipt lives only in conversation context.
 
 ## Validation and next real-world exercise
 

@@ -50,4 +50,26 @@ const hostedConfig = {
   source_code: combined.outputFiles[0].text, response_timeout_secs: 10,
 };
 await writeFile("dist/elevenlabs-hosted-tool.json", `${JSON.stringify(hostedConfig, null, 2)}\n`);
-console.log(`Built ${configs.length} portable tools, one hosted dispatcher, and preserved ${DEMO_RULE_DEFINITIONS.length} original rules.`);
+const { vidhiToolDefinitions } = await import("../src/vidhi-tool-definitions.mjs");
+const vidhiBundle = await build({
+  stdin: {
+    contents: 'import { invokeVidhi } from "./src/vidhi-demo.mjs"; export default async (ctx) => { const { action, ...args } = ctx.args ?? {}; return invokeVidhi(action, args); };',
+    resolveDir: process.cwd(), sourcefile: "truckbuddy_vidhi_mock.mjs",
+  },
+  bundle: true, write: false, format: "esm", platform: "neutral", target: "es2022", minify: true,
+});
+await writeFile("dist/code-tools/truckbuddy_vidhi_mock.mjs", vidhiBundle.outputFiles[0].text);
+const vidhiConfig = {
+  type: "code", name: "truckbuddy_vidhi_mock",
+  description: `Personalized fictional driving demo. driver_name defaults to Vidhi. Return short answers to the user's chosen question. Operations: ${vidhiToolDefinitions.map((definition) => `${definition.name}: ${definition.description}`).join(" | ")} GPS/sensors/events are scripted. Route confirmation selects only a hypothetical demo route; no navigation or dispatch is changed.`,
+  parameters: {
+    type: "object", required: ["action"],
+    properties: {
+      action: { type: "string", enum: vidhiToolDefinitions.map((definition) => definition.name), description: "Run only the operation needed for the user's current question or explicit scene event." },
+      ...Object.assign({}, ...vidhiToolDefinitions.map((definition) => definition.parameters.properties)),
+    },
+  },
+  source_code: vidhiBundle.outputFiles[0].text, response_timeout_secs: 10,
+};
+await writeFile("dist/elevenlabs-vidhi-tool.json", `${JSON.stringify(vidhiConfig, null, 2)}\n`);
+console.log(`Built ${configs.length} transport tools and ${vidhiToolDefinitions.length} personalized operations in two hosted dispatchers.`);

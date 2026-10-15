@@ -30,16 +30,21 @@ Useful starting points:
 - `src/fixtures.mjs`: fictional stock, drivers, vehicles, routes, traffic and weather.
 - `src/domain.mjs`: quantities, readiness, draft validation and operation handling.
 - `src/tool-definitions.mjs`: discoverable tool names and argument schemas.
+- `src/vidhi-demo.mjs`: personalized driver fixtures, clearance, timing and simulated confirmation.
+- `src/vidhi-tool-definitions.mjs`: the 17 personalized operation schemas.
+- `src/all-tools.mjs`: all 29 portable MCP operations.
 - `src/server.mjs`: portable HTTP MCP transport.
 - `elevenlabs/agent-prompt.md`: voice conversation instructions.
 - `test/domain.test.mjs`: domain and hosted-bundle equivalence tests.
+- `test/vidhi.test.mjs`: names, dairy stock, incident timing, sensors and route selection.
+- `docs/vidhi-scenes.md`: ask-first voice script and dynamic-variable setup.
 - `docs/evaluation.xml`: fixed-snapshot agent evaluation questions.
 
 Keep demo data clearly fictional. Preserve the distinction between mandatory constraints and preferences. New driver scenarios should report shortages and blockers before proposed instructions. Rule-drafting tools return drafts for admin review and must not publish rules or authorize dispatch.
 
 ## ElevenLabs collaboration
 
-The JavaScript bundle runs as an enterprise ElevenLabs Code tool. Build the project, then use `dist/elevenlabs-hosted-tool.json` and `elevenlabs/agent-prompt.md` to install a demo in your workspace. The optional `scripts/elevenlabs-command.py` helper uses an already-configured ElevenLabs MCP connector in Codex.
+The JavaScript bundles run as enterprise ElevenLabs Code tools. Build the project, then install both `dist/elevenlabs-hosted-tool.json` and `dist/elevenlabs-vidhi-tool.json` in your workspace. Attach them to your demo agent and apply `elevenlabs/agent-prompt.md`, `elevenlabs/first-message.txt`, and the defaults in `elevenlabs/dynamic-variables.json`. The optional `scripts/elevenlabs-command.py` helper uses an already-configured ElevenLabs MCP connector in Codex.
 
 Copy `elevenlabs/deployment.example.json` to `elevenlabs/deployment.json` and keep your deployment IDs there. This local file, `.env`, runtime prompts, credentials and generated bundles are excluded from Git.
 
