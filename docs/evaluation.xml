@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<evaluation>
+  <qa_pair>
+    <question>For the fixed 2026-10-15 snapshot, discover Alex Morgan's driver ID, inspect his SKU loading plan and scenario route, and determine the total weight of requested goods before packaging. Return only the integer number of kilograms.</question>
+    <answer>4928</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>For the same snapshot, identify the driver running the refrigerated Bremen order. Compare their requested produce with warehouse stock after reservations and quarantine. How many produce cases are missing? Return only the integer.</question>
+    <answer>30</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>Find the refrigerated driver's first contractual delivery window and combine the corridor traffic delay with the regional weather delay. By how many minutes does the fictional arrival exceed the deadline? Return only the integer.</question>
+    <answer>15</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>Inspect the cross-dock driver's stock/loading plan and assigned vehicle. Does the physical load exceed capacity even though the overage is within the original R-002 planning tolerance? Return only True or False.</question>
+    <answer>True</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>Use the hub-alignment rule's parameter and the cross-dock driver's target hub departure to calculate the latest permitted fictional arrival. Return only HH:mm.</question>
+    <answer>09:40</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>Inspect the original backload policy lifecycle and the ambient driver's return-leg opportunity. Does that opportunity authorize a pickup without admin review? Return only True or False.</question>
+    <answer>False</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>Compare the refrigerated driver's vehicle temperature class with their proposed hub backload. Are the temperature classes compatible? Return only True or False.</question>
+    <answer>False</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>Find the corridor consolidation rule, compare the shipment quantities in its original example with the maximum consolidation parameter, and compute the actual combined shipment count in that example. Return only the integer.</question>
+    <answer>35</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>Discover the ambient Hamburg driver's warehouse and assigned stops, then calculate how many cases of bottled water must be picked across all their deliveries. Return only the integer.</question>
+    <answer>180</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>Find the cross-dock driver, inspect their hub deadline including its buffer, and compare the scenario arrival after traffic/weather delays. How many minutes late is the arrival against the buffered cutoff? Return only the integer.</question>
+    <answer>12</answer>
+  </qa_pair>
+</evaluation>

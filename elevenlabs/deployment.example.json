@@ -1,0 +1,15 @@
+{
+  "hosting": "ElevenLabs hosted Code tools",
+  "status": "not_installed",
+  "demo_info_tool_id": null,
+  "transport_tool_id": null,
+  "agent_id": null,
+  "agent_name": "Truckbuddy — Talk-to-Rule Demo",
+  "mock_snapshot": "2026-10-15",
+  "verification": {
+    "hosted_source_matches_local": false,
+    "agent_prompt_matches_local": false,
+    "tool_attached_to_agent": false,
+    "hosted_execution_test": "not_run"
+  }
+}
