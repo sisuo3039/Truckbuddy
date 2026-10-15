@@ -60,7 +60,7 @@ The saved first message uses `{{driver_name}}` so a conversation can supply a di
 - “Is B441 suitable for my truck?” followed by an explicit “Confirm.”
 - “Simulate a stale sensor.”
 
-[docs/vidhi-scenes.md](docs/vidhi-scenes.md) contains the improved script, extra mock branches and variable configuration. The original driver and administrator scenarios remain available:
+[docs/demo-script.md](docs/demo-script.md) is the presenter-ready runbook, with spoken lines, scene cues, optional branches and recovery prompts. [docs/vidhi-scenes.md](docs/vidhi-scenes.md) covers the scenario and variable configuration. The original driver and administrator scenarios remain available:
 
 - “I’m Alex Morgan, driver D-001. What do I pick and load before my run?”
 - “I’m Jamie Chen, driver D-002. Can I start my day?”
