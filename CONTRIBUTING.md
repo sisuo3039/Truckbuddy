@@ -32,6 +32,7 @@ Useful starting points:
 - `src/tool-definitions.mjs`: discoverable tool names and argument schemas.
 - `src/vidhi-demo.mjs`: personalized driver fixtures, clearance, timing and simulated confirmation.
 - `src/vidhi-tool-definitions.mjs`: the 17 personalized operation schemas.
+- `src/personalization.mjs`: configured-name fallback and rendered morning greeting.
 - `src/all-tools.mjs`: all 29 portable MCP operations.
 - `src/server.mjs`: portable HTTP MCP transport.
 - `elevenlabs/agent-prompt.md`: voice conversation instructions.
@@ -45,6 +46,8 @@ Keep demo data clearly fictional. Preserve the distinction between mandatory con
 ## ElevenLabs collaboration
 
 The JavaScript bundles run as enterprise ElevenLabs Code tools. Build the project, then install both `dist/elevenlabs-hosted-tool.json` and `dist/elevenlabs-vidhi-tool.json` in your workspace. Attach them to your demo agent and apply `elevenlabs/agent-prompt.md`, `elevenlabs/first-message.txt`, and the defaults in `elevenlabs/dynamic-variables.json`. The optional `scripts/elevenlabs-command.py` helper uses an already-configured ElevenLabs MCP connector in Codex.
+
+The build generates `elevenlabs/first-message.txt` from the configured `driver_name`. Edit the name in `elevenlabs/dynamic-variables.json` or the greeting in `src/personalization.mjs`, then rebuild. The native prompt retains runtime personalization; the first greeting uses the rendered configured name.
 
 Copy `elevenlabs/deployment.example.json` to `elevenlabs/deployment.json` and keep your deployment IDs there. This local file, `.env`, runtime prompts, credentials and generated bundles are excluded from Git.
 

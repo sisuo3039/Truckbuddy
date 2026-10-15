@@ -1,18 +1,22 @@
-# Ask-first driving demo
+# Briefing-first driver conversation
 
-The driver's greeting uses `{{driver_name}}`, defaulting to Vidhi. Replace the name at conversation start without creating another agent. All events and readings below are fictional.
+The greeting is rendered before installation from the configured `driver_name`, defaulting to Vidhi. Spoken lines stay natural. All events and readings remain fictional fixtures internally.
 
 ## Scene 1 — Loading dock, 05:47
 
-**Agent:** Good morning, Vidhi. What would you like to check first for your demo run?
+**Agent:** Good morning, Vidhi. Would you like your morning briefing?
 
-**Vidhi:** What's my load?
+**Vidhi:** Yes, give me my morning briefing.
 
-**Agent:** Fourteen dairy pallets for P-4418: four milk, four yogurt and six cheese. Want the loading order?
+**Agent:** You're taking fourteen dairy pallets on P-4418, with a planned arrival of 12:35. Would you like the loading details?
+
+**Vidhi:** Yes. What's the breakdown?
+
+**Agent:** Four milk pallets, four yogurt and six cheese. Want the loading order?
 
 **Vidhi:** What should I watch with the dairy?
 
-**Agent:** The chilled range is two to six degrees, and the mock reading is 4.1. Want to check the delivery time next?
+**Agent:** The chilled range is two to six degrees, and the reading is 4.1. Want to check the delivery window next?
 
 **Vidhi:** Will I arrive in time?
 
@@ -30,7 +34,7 @@ An operator says “show the road ahead,” or a future client injects this mock
 
 **Vidhi:** Yes. Do I need a permit?
 
-**Agent:** Your permit is confirmed in the fictional profile, and the zone limit is sixty. Want to check the residential section too?
+**Agent:** Your permit is confirmed, and the zone limit is sixty. Want to check the residential section too?
 
 **Vidhi:** Yes.
 
@@ -38,7 +42,9 @@ An operator says “show the road ahead,” or a future client injects this mock
 
 ## Scene 3 — Traffic event, 09:40
 
-**Agent:** A mock accident adds forty-five minutes. Want me to compare the alternatives?
+**Vidhi:** Any traffic updates?
+
+**Agent:** An accident adds forty-five minutes. Want me to compare the alternatives?
 
 **Vidhi:** Will I miss the unloading window?
 
@@ -46,13 +52,13 @@ An operator says “show the road ahead,” or a future client injects this mock
 
 **Vidhi:** Is it suitable for my truck?
 
-**Agent:** B441 has enough clearance; the common diversion's 3.8-metre limit is too low for your 4.1-metre truck. Would you like to use B441 in this demo?
+**Agent:** B441 has enough clearance; the common diversion's 3.8-metre limit is too low for your 4.1-metre truck. Would you like to use B441?
 
 **Vidhi:** Confirm.
 
 The agent calls `vidhi_confirm_reroute` with explicit confirmation. Only a successful response permits the following line.
 
-**Agent:** B441 is selected for this demo, with your forty-five-minute rest preserved. Want the updated arrival time?
+**Agent:** B441 is your chosen route, with the forty-five-minute rest kept in the plan. Want the updated arrival time?
 
 **Vidhi:** Where is my rest now?
 
@@ -60,9 +66,9 @@ The agent calls `vidhi_confirm_reroute` with explicit confirmation. Only a succe
 
 ## Extra mock branches
 
-- **Temperature excursion:** ask “simulate a temperature alert.” The reading becomes 7.3°C. The agent states the problem immediately and offers the next dispatch check.
-- **Stale sensor:** ask “simulate a stale sensor.” No fresh reading is available. The agent must not reassure the user that the load is within range.
-- **Arrival:** ask for dock F6, booking DEMO-BOOK-4418, temperature record or unloading window.
+- **Temperature excursion:** say “the trailer seems warm; check the temperature.” The reading becomes 7.3°C. The agent states the problem immediately and offers the next dispatch check.
+- **Stale sensor:** say “the sensor hasn't updated.” No fresh reading is available. The agent must not reassure the user that the load is within range.
+- **Arrival:** ask for dock F6, booking BOOK-4418-1015, temperature record or unloading window.
 - **Return leg:** ask about residential restrictions. The daytime scene has no active noise restriction; the separate hypothetical 22:30 scene does.
 
 ## Variable configuration
@@ -73,13 +79,15 @@ The agent calls `vidhi_confirm_reroute` with explicit confirmation. Only a succe
 {"dynamic_variable_placeholders":{"driver_name":"Vidhi"}}
 ```
 
-`elevenlabs/first-message.txt` and the agent prompt both use `{{driver_name}}`. At SDK conversation initiation, pass:
+The reported entry point spoke `{{driver_name}}` literally despite a saved native placeholder. `npm run build` now renders `elevenlabs/first-message.txt` using the configured name through `src/personalization.mjs`. To change that opening name, edit the default, rebuild, and apply the generated greeting and personalized Code tool.
+
+The agent prompt can still consume native runtime variables. At SDK conversation initiation, pass:
 
 ```json
 {"dynamic_variables":{"driver_name":"Vidhi"}}
 ```
 
-Pass the same resolved value as `driver_name` to the personalized mock tool so the greeting and profile agree.
+Pass a resolved value as `driver_name` to the personalized tool. Missing or literal placeholder values fall back to the configured default. The installed first greeting uses the rendered configured name; changing only a runtime variable does not change that greeting.
 
 ## Timing and capability boundaries
 

@@ -2,8 +2,10 @@ import { build, transform } from "esbuild";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { pathToFileURL } from "node:url";
 import { resolve } from "node:path";
+import { renderFirstMessage } from "../src/personalization.mjs";
 
 await mkdir("dist/code-tools", { recursive: true });
+await writeFile("elevenlabs/first-message.txt", `${renderFirstMessage()}\n`);
 const source = await readFile("data/rule-definitions.ts", "utf8");
 const transpiled = await transform(source, { loader: "ts", format: "esm", target: "es2022" });
 await writeFile("dist/rule-definitions.mjs", transpiled.code);

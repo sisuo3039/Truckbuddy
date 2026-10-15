@@ -13,7 +13,7 @@ All stock, drivers, routes, traffic and weather are **fictional**, from a fixed 
 - Returns a structured rule draft and validation report for administrator review.
 - Gives drivers stock availability after reservations/quarantine, exact per-stop quantities, bins, weight, pallet positions and load order.
 - Combines vehicle/resource availability, stops, delivery windows, traffic/weather scenario delays, shift availability and dispatch blockers.
-- Personalizes a driver demo with `{{driver_name}}`, defaulting to **Vidhi**, and offers short answers followed by one relevant question.
+- Personalizes the driver with configurable `driver_name`, defaulting to **Vidhi**, and begins with an offer of a short morning briefing.
 - Provides 17 additional mock operations for dairy loading, temperatures, permits, road restrictions, rest, delivery, weather and confirmed simulated route selection.
 
 Rule drafts are returned in the conversation, not stored in a durable admin system. The tools cannot publish rules, reserve stock, change routes, cancel freight orders or authorize dispatch.
@@ -36,7 +36,7 @@ Prepared artifacts:
 - `dist/code-tools/truckbuddy_vidhi_mock.mjs`: standalone personalized JavaScript.
 - `dist/elevenlabs-code-tools.json`: individual configs for the original 12 operations.
 - [elevenlabs/agent-prompt.md](elevenlabs/agent-prompt.md): voice-agent orchestration and draft/dispatch boundaries.
-- [elevenlabs/first-message.txt](elevenlabs/first-message.txt) and [elevenlabs/dynamic-variables.json](elevenlabs/dynamic-variables.json): variable greeting and default name.
+- [elevenlabs/first-message.txt](elevenlabs/first-message.txt) and [elevenlabs/dynamic-variables.json](elevenlabs/dynamic-variables.json): rendered greeting and configurable default name.
 
 References:
 
@@ -48,17 +48,20 @@ References:
 
 The personalized greeting is:
 
-> Good morning, Vidhi. What would you like to check first for your demo run?
+> Good morning, Vidhi. Would you like your morning briefing?
 
-The saved first message uses `{{driver_name}}` so a conversation can supply a different name. The agent already knows the configured user and retrieves only the information requested. Try:
+The first message is rendered at build time from `driver_name` so an unresolved placeholder never reaches that saved greeting. Change the default in `elevenlabs/dynamic-variables.json`, rebuild, and apply the generated greeting and personalized tool to change the opening name. Native session names still work in the prompt and tool context, with a configured-name fallback.
 
-- “What's my load?”
+Spoken dialogue uses operational wording without fixture labels. The agent already knows the configured user, provides a short briefing when asked, and then retrieves the requested details. Try:
+
+- “Yes, give me my morning briefing.”
+- “What's the load breakdown?”
 - “What temperature should the dairy stay at?”
 - “Will I arrive in time?”
 - “Show the road ahead.”
-- “Simulate the traffic alert.”
-- “Is B441 suitable for my truck?” followed by an explicit “Confirm.”
-- “Simulate a stale sensor.”
+- “Any traffic updates?”
+- “Is B441 suitable for my truck?” followed by an explicit “Confirm B441.”
+- “The sensor hasn't updated.”
 
 [docs/demo-script.md](docs/demo-script.md) is the presenter-ready runbook, with spoken lines, scene cues, optional branches and recovery prompts. [docs/vidhi-scenes.md](docs/vidhi-scenes.md) covers the scenario and variable configuration. The original driver and administrator scenarios remain available:
 

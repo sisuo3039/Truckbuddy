@@ -4,7 +4,9 @@ The repository was empty. This demo implements the two workflows in the requeste
 
 An administrator speaks a requirement. The agent collects scope, conditions, actions, numeric parameters with units, exceptions, and whether the requirement is mandatory or preferred. It returns a structured draft and validation report for admin review. Voice tools cannot approve, publish, dispatch, reassign stock, or change a route.
 
-The personalized driver is already known through `{{driver_name}}`, defaulting to Vidhi. The agent asks what they want to check and retrieves only the relevant load, temperature, route, road restriction, weather or delivery data. Each short answer invites one follow-up. The original three driver scenarios remain available by explicit driver ID.
+The personalized driver is already known through configured `driver_name`, defaulting to Vidhi. The greeting is rendered before installation to avoid the reported literal-placeholder issue. It offers a morning briefing; an affirmative answer returns a short load/vehicle/arrival overview and one follow-up. Further details are retrieved on request. The original three driver scenarios remain available by explicit driver ID.
+
+Spoken lines use natural operational language without fixture labels. Source metadata still identifies the data as fictional, and no external navigation or dispatch action is implied.
 
 A shortage or blocked dispatch is reported before loading instructions. All operational data is fictional, not current information.
 

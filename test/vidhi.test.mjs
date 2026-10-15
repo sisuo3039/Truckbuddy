@@ -2,6 +2,22 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { invokeVidhi } from "../src/vidhi-demo.mjs";
 import hostedTool from "../dist/code-tools/truckbuddy_vidhi_mock.mjs";
+import { readFile } from "node:fs/promises";
+import { renderFirstMessage, defaultDriverName } from "../src/personalization.mjs";
+
+test("the installed greeting is rendered and offers a morning briefing", async () => {
+  const greeting = (await readFile(new URL("../elevenlabs/first-message.txt", import.meta.url), "utf8")).trim();
+  assert.equal(greeting, renderFirstMessage());
+  assert.ok(!greeting.includes("{{"));
+  assert.match(greeting, /morning briefing/);
+  assert.ok(greeting.includes(defaultDriverName));
+  assert.ok(renderFirstMessage("Priya").includes("Priya"));
+  assert.ok(!renderFirstMessage("{{driver_name}}").includes("{{"));
+  const briefing = invokeVidhi("vidhi_get_shift_briefing", { driver_name: "{{driver_name}}" });
+  assert.equal(briefing.driver_name, defaultDriverName);
+  assert.equal(briefing.arrival, "12:35");
+  assert.match(briefing.suggested_question, /loading details/);
+});
 
 test("the known driver's name defaults to Vidhi and follows a session override", () => {
   assert.equal(invokeVidhi("vidhi_get_profile").profile.name, "Vidhi");
